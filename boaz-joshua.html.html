@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boaz Joshua — Founder & Entrepreneur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black: #080808;
+    --off-black: #111111;
+    --dark: #1a1a1a;
+    --mid: #2a2a2a;
+    --border: rgba(255,255,255,0.07);
+    --text-primary: #f0ece4;
+    --text-secondary: rgba(240,236,228,0.55);
+    --text-muted: rgba(240,236,228,0.3);
+    --gold: #c9a96e;
+    --gold-dim: rgba(201,169,110,0.15);
+    --gold-border: rgba(201,169,110,0.25);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Outfit', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--black);
+    color: var(--text-primary);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
+  body:hover .cursor { opacity: 1; }
+  a:hover ~ .cursor, button:hover ~ .cursor { width: 12px; height: 12px; }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.35;
+  }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.9) 0%, transparent 100%);
+    backdrop-filter: blur(0px);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    text-decoration: none;
+    opacity: 0;
+    animation: fadeDown 0.8s ease 0.3s forwards;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    opacity: 0;
+    animation: fadeDown 0.8s ease forwards;
+  }
+  .nav-links li:nth-child(1) a { animation-delay: 0.4s; }
+  .nav-links li:nth-child(2) a { animation-delay: 0.5s; }
+  .nav-links li:nth-child(3) a { animation-delay: 0.6s; }
+  .nav-links li:nth-child(4) a { animation-delay: 0.7s; }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(201,169,110,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(201,169,110,0.04) 0%, transparent 60%),
+      linear-gradient(160deg, #0d0d0d 0%, #080808 60%, #0a0806 100%);
+  }
+
+  .hero-lines {
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 1.2s forwards;
+  }
+  .hero-lines span {
+    display: block;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.2;
+  }
+  .hero-lines span:nth-child(1) { width: 60px; }
+  .hero-lines span:nth-child(2) { width: 40px; }
+  .hero-lines span:nth-child(3) { width: 80px; }
+
+  .hero-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.5s forwards;
+  }
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+    vertical-align: middle;
+    margin-right: 0.75rem;
+    opacity: 0.7;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.65s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 440px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.85s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 2rem;
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.15);
+    transform: translateX(-100%);
+    transition: transform 0.35s ease;
+  }
+  .btn-primary:hover::after { transform: translateX(0); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 40px rgba(201,169,110,0.25); }
+
+  .btn-ghost {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+  }
+  .btn-ghost:hover { color: var(--gold); }
+  .btn-ghost .arrow { transition: transform 0.3s ease; }
+  .btn-ghost:hover .arrow { transform: translateX(4px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.5s forwards;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    padding: 7rem 3rem;
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+
+  /* ─── ABOUT ─── */
+  .about {
+    border-top: 1px solid var(--border);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-left {
+    position: sticky;
+    top: 6rem;
+  }
+
+  .about-photo-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--dark);
+    overflow: hidden;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: linear-gradient(145deg, #1a1a18, #0e0e0c);
+  }
+
+  .photo-icon {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--gold-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 1.2rem;
+  }
+
+  .photo-hint {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  .about-photo-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(to top, var(--black), transparent);
+  }
+
+  .photo-caption {
+    margin-top: 1.25rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .about-right {}
+
+  .about-heading {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 2rem;
+  }
+  .about-heading em { font-style: italic; color: var(--gold); }
+
+  .about-body p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.85;
+  }
+
+  .about-body p strong {
+    color: var(--text-primary);
+    font-weight: 400;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 3.5rem;
+    border: 1px solid var(--border);
+  }
+
+  .stat-item {
+    padding: 1.8rem 1.5rem;
+    border-right: 1px solid var(--border);
+    transition: background 0.35s ease;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item:hover { background: var(--gold-dim); }
+
+  .stat-number {
+    font-family: var(--serif);
+    font-size: 2.6rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── JOURNEY ─── */
+  .journey {
+    border-top: 1px solid var(--border);
+    background: linear-gradient(to bottom, var(--off-black), var(--black));
+  }
+
+  .journey-intro {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-secondary);
+    max-width: 700px;
+    line-height: 1.5;
+    margin-bottom: 5rem;
+    border-left: 1px solid var(--gold);
+    padding-left: 2rem;
+  }
+
+  .timeline {
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold) 0%, rgba(201,169,110,0.1) 100%);
+  }
+
+  .timeline-item {
+    padding-left: 3rem;
+    padding-bottom: 3.5rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateY(0); }
+
+  .timeline-dot {
+    position: absolute;
+    left: -4px;
+    top: 4px;
+    width: 9px; height: 9px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(201,169,110,0.4);
+  }
+
+  .timeline-year {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 560px;
+    line-height: 1.8;
+  }
+
+  /* ─── CURRENT FOCUS ─── */
+  .focus {
+    border-top: 1px solid var(--border);
+  }
+
+  .focus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin-top: 1rem;
+  }
+
+  .focus-card {
+    background: var(--black);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.35s ease;
+  }
+  .focus-card:hover { background: var(--off-black); }
+
+  .focus-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+  }
+  .focus-card:hover::before { transform: scaleX(1); }
+
+  .focus-num {
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: rgba(201,169,110,0.12);
+    line-height: 1;
+    margin-bottom: 1.2rem;
+    transition: color 0.35s ease;
+  }
+  .focus-card:hover .focus-num { color: rgba(201,169,110,0.2); }
+
+  .focus-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+  }
+
+  .focus-text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  /* ─── ZANMOVES ─── */
+  .zanmoves {
+    border-top: 1px solid var(--border);
+    background: linear-gradient(135deg, #0a0908 0%, #080808 50%, #0c0a07 100%);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .zanmoves::before {
+    content: 'ZANMOVES';
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: var(--serif);
+    font-size: 10rem;
+    font-weight: 300;
+    color: rgba(201,169,110,0.03);
+    letter-spacing: 0.2em;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .zanmoves-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .zanmoves-left {}
+
+  .zanmoves-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--gold-border);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+  }
+
+  .zanmoves-heading {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .zanmoves-heading em { font-style: italic; color: var(--gold); }
+
+  .zanmoves-desc {
+    font-size: 0.97rem;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    margin-bottom: 2.5rem;
+  }
+
+  .zanmoves-metrics {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .metric {
+    border-left: 1px solid var(--gold-border);
+    padding-left: 1.2rem;
+  }
+
+  .metric-val {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .metric-key {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .zanmoves-right {
+    position: relative;
+  }
+
+  .dest-list {
+    list-style: none;
+  }
+
+  .dest-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .dest-item:hover { padding-left: 0.5rem; }
+
+  .dest-name {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+  }
+  .dest-item:hover .dest-name { color: var(--text-primary); }
+
+  .dest-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+  }
+  .dest-item:hover .dest-tag {
+    border-color: var(--gold-border);
+    color: var(--gold);
+  }
+
+  /* ─── VISION ─── */
+  .vision {
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .vision-quote {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-primary);
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.4;
+  }
+
+  .vision-quote em { color: var(--gold); font-style: normal; }
+
+  .vision-sub {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    max-width: 520px;
+    margin: 0 auto 4rem;
+    line-height: 1.85;
+  }
+
+  .values-row {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .value-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+  }
+  .value-tag:hover { color: var(--gold); }
+
+  /* ─── COUNTRIES ─── */
+  .countries {
+    border-top: 1px solid var(--border);
+    padding: 3rem;
+    overflow: hidden;
+  }
+
+  .countries-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .countries-scroll {
+    display: flex;
+    gap: 4rem;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  .country-item {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    transition: color 0.3s ease;
+  }
+  .country-item::before {
+    content: '✦';
+    font-size: 0.5rem;
+    color: var(--gold);
+  }
+
+  /* ─── CONTACT ─── */
+  .contact {
+    border-top: 1px solid var(--border);
+    background: linear-gradient(to bottom, var(--black), var(--off-black));
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-left {}
+
+  .contact-heading {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .contact-heading em { font-style: italic; color: var(--gold); }
+
+  .contact-sub {
+    font-size: 0.97rem;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    margin-bottom: 3rem;
+    max-width: 380px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    group: true;
+  }
+  .contact-link:hover { padding-right: 0.5rem; }
+
+  .contact-link-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .contact-icon {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+  .contact-link:hover .contact-icon {
+    background: var(--gold-dim);
+    border-color: var(--gold-border);
+  }
+
+  .contact-link-label {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+  }
+  .contact-link:hover .contact-link-label { color: var(--text-primary); }
+
+  .contact-link-arrow {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+  }
+  .contact-link:hover .contact-link-arrow {
+    color: var(--gold);
+    transform: translateX(3px);
+  }
+
+  .contact-right {
+    padding-top: 1rem;
+  }
+
+  .available-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid rgba(74,222,128,0.2);
+    background: rgba(74,222,128,0.05);
+    margin-bottom: 2.5rem;
+  }
+
+  .available-dot {
+    width: 6px; height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse-green 2s ease-in-out infinite;
+  }
+
+  .available-text {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4ade80;
+  }
+
+  .contact-note {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--border);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+  }
+  .tag:hover {
+    border-color: var(--gold-border);
+    color: var(--gold);
+    background: var(--gold-dim);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 2.5rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .footer-left strong {
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .footer-right {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .footer-center {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .footer-center::before,
+  .footer-center::after {
+    content: '·';
+    color: var(--gold);
+    opacity: 0.5;
+  }
+
+  /* ─── ZANMOVES CONTACT INFO ─── */
+  .zanmoves-contact-info {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .zanmoves-contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.3s ease;
+  }
+  .zanmoves-contact-item:hover { color: var(--gold); }
+
+  .zanmoves-contact-icon {
+    color: var(--gold);
+    font-size: 0.75rem;
+    opacity: 0.7;
+  }
+
+  /* ─── VISION CONTACT LINKS ─── */
+  .vision-contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .vision-contact-link:hover { color: var(--gold); }
+
+  .vision-contact-icon {
+    color: var(--gold);
+    font-size: 0.7rem;
+    opacity: 0.7;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    50%       { opacity: 0.4; transform: scaleY(0.7); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes pulse-green {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+    50%       { box-shadow: 0 0 0 5px rgba(74,222,128,0); }
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { display: none; }
+
+    section { padding: 5rem 1.5rem; }
+    .hero { padding: 0 1.5rem 4rem; }
+    .hero-lines { display: none; }
+    .hero-title { font-size: clamp(3rem, 14vw, 5rem); }
+
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-left { position: static; }
+    .about-photo-frame { aspect-ratio: 4/3; }
+    .about-stats { grid-template-columns: repeat(3,1fr); }
+
+    .focus-grid { grid-template-columns: 1fr; gap: 1px; }
+
+    .zanmoves-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+    footer {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .countries { padding: 2rem 1.5rem; }
+
+    .hero-scroll { display: none; }
+
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .zanmoves-metrics { flex-direction: column; gap: 1.5rem; }
+    .values-row { gap: 1.5rem; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Navigation -->
+<nav>
+  <a href="#" class="nav-logo">Boaz Joshua</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#zanmoves">Zanmoves</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#contact">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines">
+    <span></span><span></span><span></span>
+  </div>
+
+  <p class="hero-label">Founder & Entrepreneur — Tanzania</p>
+
+  <h1 class="hero-title">
+    Boaz<br>
+    <em>Joshua</em>
+  </h1>
+
+  <p class="hero-sub">
+    Building a new standard for travel in East Africa — one authentic experience at a time.
+  </p>
+
+  <div class="hero-cta">
+    <a href="https://instagram.com/zanmoves_" target="_blank" class="btn-primary">@zanmoves_</a>
+    <a href="#contact" class="btn-ghost">
+      Let's Connect <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <p class="section-label reveal">About Me</p>
+    <div class="about-grid">
+      <div class="about-left reveal">
+        <div class="about-photo-frame">
+          <div class="photo-placeholder">
+          </div>
+        </div>
+        <div class="photo-caption">
+          <span>Boaz Joshua</span>
+          <span>Tanzania</span>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <h2 class="about-heading reveal">
+          A founder<br>shaped by<br><em>purpose.</em>
+        </h2>
+        <div class="about-body">
+          <p class="reveal reveal-delay-1">
+            My name is <strong>Boaz Joshua</strong>. I'm a recent graduate with a Bachelor of Science in Valuation, and the founder and CEO of <strong>ZANMOVES</strong> — a premium travel startup redefining how the world experiences Tanzania.
+          </p>
+          <p class="reveal reveal-delay-2">
+            I grew up watching the richness of this country — the coastlines of Zanzibar, the wilderness of the mainland, the warmth of the people — and I knew there was a gap between what Tanzania truly offers and how the world was experiencing it.
+          </p>
+          <p class="reveal reveal-delay-3">
+            So I built something to close that gap. Not just a travel agency — a <strong>brand, a vision, a movement.</strong> ZANMOVES exists to give travelers something real: genuine local perspective, curated excellence, and experiences that stay with them long after they leave.
+          </p>
+          <p class="reveal reveal-delay-4">
+            I'm passionate about entrepreneurship, branding, and the kind of business-building that actually creates meaning. Every day I'm learning, pushing, and working toward something I believe in deeply.
+          </p>
+        </div>
+
+        <div class="about-stats reveal">
+          <div class="stat-item">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Hotel<br>Partners</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Countries<br>Served</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">2025</div>
+            <div class="stat-label">Founded &<br>Growing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Journey -->
+<section class="journey" id="journey">
+  <div class="section-inner">
+    <p class="section-label reveal">Founder Story</p>
+    <p class="journey-intro reveal">
+      "The best founders don't wait for permission — they build the thing they wish existed."
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">The Beginning</div>
+        <h3 class="timeline-title">A degree. A question. A decision.</h3>
+        <p class="timeline-text">
+          Completing a degree in Valuation gave me structure, discipline, and a way of seeing value in the world — literally. But somewhere along the way, I started asking a different kind of question: What was Tanzania truly worth to the travelers who had never experienced her properly?
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">The Idea</div>
+        <h3 class="timeline-title">Tanzania deserved better storytelling.</h3>
+        <p class="timeline-text">
+          Tourism was happening — but the premium local experience, the insider routes, the genuine human connection — those were largely missing from what agencies were offering. I believed someone with deep roots here could do it differently.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">The Build</div>
+        <h3 class="timeline-title">ZANMOVES — from vision to reality.</h3>
+        <p class="timeline-text">
+          I started building. Reaching out to hotels, learning the industry, developing the brand, and saying yes to every opportunity to grow. Within a relatively short period, ZANMOVES had formed partnerships with over 100 hotels across Zanzibar and mainland Tanzania, and was welcoming travelers from Switzerland, the UK, Austria, the US, and South Africa.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Now</div>
+        <h3 class="timeline-title">Building for East Africa.</h3>
+        <p class="timeline-text">
+          We're still early — and I say that proudly. What's been built so far is proof that the vision is real. The next chapter is about scale, brand, and expanding ZANMOVES into the leading premium travel company in East Africa.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Current Focus -->
+<section class="focus" id="focus">
+  <div class="section-inner">
+    <p class="section-label reveal">Currently Building</p>
+    <div class="focus-grid">
+      <div class="focus-card reveal">
+        <div class="focus-num">01</div>
+        <div class="focus-title">Scaling ZANMOVES</div>
+        <p class="focus-text">Expanding our hotel network, refining our product, and growing our client base across Europe, the Gulf, and North America.</p>
+      </div>
+      <div class="focus-card reveal reveal-delay-1">
+        <div class="focus-num">02</div>
+        <div class="focus-title">Brand & Digital Presence</div>
+        <p class="focus-text">Building the ZANMOVES brand into something globally recognizable — through content, storytelling, and premium digital experiences.</p>
+      </div>
+      <div class="focus-card reveal reveal-delay-2">
+        <div class="focus-num">03</div>
+        <div class="focus-title">East Africa Vision</div>
+        <p class="focus-text">Looking beyond Tanzania — toward a presence in Kenya, Rwanda, and across the region. One premium travel brand for all of East Africa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Countries Marquee -->
+<div class="countries">
+  <p class="countries-label">Travelers we've welcomed from</p>
+  <div class="countries-scroll">
+    <span class="country-item">Switzerland</span>
+    <span class="country-item">United Kingdom</span>
+    <span class="country-item">Austria</span>
+    <span class="country-item">United States</span>
+    <span class="country-item">South Africa</span>
+    <span class="country-item">Germany</span>
+    <span class="country-item">Netherlands</span>
+    <span class="country-item">Switzerland</span>
+    <span class="country-item">United Kingdom</span>
+    <span class="country-item">Austria</span>
+    <span class="country-item">United States</span>
+    <span class="country-item">South Africa</span>
+    <span class="country-item">Germany</span>
+    <span class="country-item">Netherlands</span>
+  </div>
+</div>
+
+<!-- ZANMOVES Section -->
+<section class="zanmoves" id="zanmoves">
+  <div class="section-inner">
+    <div class="zanmoves-grid">
+      <div class="zanmoves-left reveal">
+        <div class="zanmoves-badge">
+          <span>✦</span> My Flagship Venture
+        </div>
+
+        <h2 class="zanmoves-heading">
+          Tanzania.<br>
+          Experienced <em>properly.</em>
+        </h2>
+
+        <p class="zanmoves-desc">
+          ZANMOVES is a premium travel startup built for travelers who want more than a packaged tour. We combine professional curation with deep local knowledge to create authentic, memorable experiences across Tanzania and Zanzibar.
+        </p>
+
+        <div class="zanmoves-metrics">
+          <div class="metric">
+            <div class="metric-val">100+</div>
+            <div class="metric-key">Hotel Partners</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">5+</div>
+            <div class="metric-key">Countries</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">2</div>
+            <div class="metric-key">Regions</div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/255688017724" target="_blank" class="btn-primary">Work With ZANMOVES</a>
+
+        <div class="zanmoves-contact-info">
+          <span class="zanmoves-contact-item">
+            <span class="zanmoves-contact-icon">◎</span>
+            <span>Zanmovestours@gmail.com</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="zanmoves-right reveal reveal-delay-2">
+        <p class="section-label">Destinations</p>
+        <ul class="dest-list">
+          <li class="dest-item">
+            <span class="dest-name">Zanzibar Island</span>
+            <span class="dest-tag">Premium Stays</span>
+          </li>
+          <li class="dest-item">
+            <span class="dest-name">Serengeti</span>
+            <span class="dest-tag">Safari</span>
+          </li>
+          <li class="dest-item">
+            <span class="dest-name">Ngorongoro</span>
+            <span class="dest-tag">Wildlife</span>
+          </li>
+          <li class="dest-item">
+            <span class="dest-name">Mount Kilimanjaro</span>
+            <span class="dest-tag">Adventure</span>
+          </li>
+          <li class="dest-item">
+            <span class="dest-name">Dar es Salaam</span>
+            <span class="dest-tag">City & Culture</span>
+          </li>
+          <li class="dest-item">
+            <span class="dest-name">Mikumi National Park</span>
+            <span class="dest-tag">Wildlife</span>
+          </li>
+          <li class="dest-item">
+            <span class="dest-name">Nyerere National Park</span>
+            <span class="dest-tag">Safari</span>
+          </li>
+          <li class="dest-item">
+            <span class="dest-name">Tarangire National Park</span>
+            <span class="dest-tag">Wildlife</span>
+          </li>
+          <li class="dest-item">
+            <span class="dest-name">Lake Manyara National Park</span>
+            <span class="dest-tag">Nature</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vision -->
+<section class="vision" id="vision">
+  <div class="section-inner">
+    <p class="section-label reveal" style="justify-content:center; text-align:center;">Vision & Philosophy</p>
+
+    <blockquote class="vision-quote reveal">
+      "I want to build something that makes Tanzania proud — a brand that carries the name of this country with the excellence it deserves."
+    </blockquote>
+
+    <p class="vision-sub reveal">
+      Entrepreneurship, to me, is not just about building a business. It's about solving a real problem, telling a real story, and creating something that outlasts the moment it was built in.
+    </p>
+
+    <a href="https://wa.me/255748643096" target="_blank" class="btn-primary reveal" style="margin: 0 auto; display: inline-flex;">Start a Conversation</a>
+
+    <div class="vision-contact reveal" style="display:flex; justify-content:center; gap:2.5rem; flex-wrap:wrap; margin-top:1.75rem;">
+      <span class="vision-contact-link">
+        <span class="vision-contact-icon">◎</span> boazjoshua117@gmail.com
+      </span>
+    </div>
+
+    <div class="values-row reveal">
+      <span class="value-tag">Authenticity</span>
+      <span class="value-tag">Premium Service</span>
+      <span class="value-tag">Local Perspective</span>
+      <span class="value-tag">Long-term Vision</span>
+      <span class="value-tag">Entrepreneurship</span>
+      <span class="value-tag">East Africa</span>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <h2 class="contact-heading">
+          Let's<br><em>connect.</em>
+        </h2>
+        <p class="contact-sub">
+          Whether you're a traveler, a potential partner, an investor, or simply curious — I'd love to hear from you.
+        </p>
+
+        <div class="contact-links">
+          <a href="https://instagram.com/zanmoves_" target="_blank" class="contact-link">
+            <div class="contact-link-left">
+              <div class="contact-icon">◈</div>
+              <span class="contact-link-label">Follow on Instagram</span>
+            </div>
+            <span class="contact-link-arrow">↗</span>
+          </a>
+          <a href="https://wa.me/255748643096" target="_blank" class="contact-link">
+            <div class="contact-link-left">
+              <div class="contact-icon">◉</div>
+              <span class="contact-link-label">WhatsApp — +255 748 643096</span>
+            </div>
+            <span class="contact-link-arrow">↗</span>
+          </a>
+          <a href="mailto:boazjoshua117@gmail.com" class="contact-link">
+            <div class="contact-link-left">
+              <div class="contact-icon">◎</div>
+              <span class="contact-link-label">boazjoshua117@gmail.com</span>
+            </div>
+            <span class="contact-link-arrow">↗</span>
+          </a>
+          <a href="https://wa.me/255688017724" target="_blank" class="contact-link">
+            <div class="contact-link-left">
+              <div class="contact-icon">✦</div>
+              <span class="contact-link-label">Plan a Trip with ZANMOVES</span>
+            </div>
+            <span class="contact-link-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-right reveal reveal-delay-2">
+        <div class="available-badge">
+          <div class="available-dot"></div>
+          <span class="available-text">Open to conversations</span>
+        </div>
+
+        <p class="contact-note">
+          "The right conversation at the right time can change everything. Don't hesitate to reach out."
+        </p>
+
+        <div class="contact-tags">
+          <span class="tag">Travel Partnerships</span>
+          <span class="tag">Investor Inquiries</span>
+          <span class="tag">Hotel Partners</span>
+          <span class="tag">Media & Press</span>
+          <span class="tag">Trip Planning</span>
+          <span class="tag">Collaboration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-left">
+    <strong>Boaz Joshua</strong> — Founder, ZANMOVES
+  </div>
+  <div class="footer-center">Tanzania · East Africa</div>
+  <div class="footer-right">© 2025 All rights reserved</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '14px';
+      cursor.style.height = '14px';
+      ring.style.width = '50px';
+      ring.style.height = '50px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '8px';
+      cursor.style.height = '8px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal, .timeline-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav scroll behavior
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.background = 'rgba(8,8,8,0.92)';
+      nav.style.backdropFilter = 'blur(12px)';
+      nav.style.borderBottom = '1px solid rgba(255,255,255,0.06)';
+    } else {
+      nav.style.background = 'linear-gradient(to bottom, rgba(8,8,8,0.9) 0%, transparent 100%)';
+      nav.style.backdropFilter = 'blur(0px)';
+      nav.style.borderBottom = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>
